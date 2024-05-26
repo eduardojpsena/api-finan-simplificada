@@ -1,5 +1,6 @@
 package com.api_financeira_simplificada.service;
 
+import com.api_financeira_simplificada.common.enums.EnumError;
 import com.api_financeira_simplificada.domain.user.User;
 import com.api_financeira_simplificada.dto.UserDTO;
 import com.api_financeira_simplificada.repository.UserRepository;
@@ -33,7 +34,7 @@ public class UserService {
     }
 
     public User findUserById(Long id) throws Exception {
-        return this.repository.findById(id).orElseThrow(() -> new Exception("Usuário não encontrado"));
+        return this.repository.findById(id).orElseThrow(() -> new Exception(EnumError.USUARIO_NAO_ENCONTRADO.getMessage()));
     }
 
     public List<User> findAllUsers() {
