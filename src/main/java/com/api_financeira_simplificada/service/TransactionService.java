@@ -15,6 +15,8 @@ public class TransactionService {
     @Autowired
     private TransactionRepository repository;
     @Autowired
+    private TransactionValidateService validateService;
+    @Autowired
     private UserService userService;
 
     public Transaction createTransaction(TransactionDTO transactionRequest) throws Exception {
@@ -27,6 +29,7 @@ public class TransactionService {
         newTransaction.setValueTransaction(transactionRequest.value());
         newTransaction.setTimestamp(LocalDateTime.now());
 
+        this.validateService.validateTransaction(newTransaction);
         this.saveTransaction(newTransaction);
 
         return newTransaction;
