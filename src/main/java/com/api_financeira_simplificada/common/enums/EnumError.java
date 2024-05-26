@@ -8,6 +8,7 @@ import lombok.Getter;
 public enum EnumError {
 
     USUARIO_NAO_ENCONTRADO("Usuário não encontrado"),
+    USUARIO_JA_CADASTRADO("Usuário já cadastrado"),
     LOJISTA_NAO_AUTORIZADO("Usuário do tipo Lojista não está autorizado a realizar transferências"),
     SALDO_INDISPONIVEL("Saldo indisponível");
 
