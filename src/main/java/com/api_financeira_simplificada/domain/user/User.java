@@ -1,4 +1,4 @@
-package com.api_financeira_simplificada.domain;
+package com.api_financeira_simplificada.domain.user;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
