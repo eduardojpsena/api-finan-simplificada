@@ -7,6 +7,7 @@ import com.api_financeira_simplificada.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Service
@@ -30,6 +31,7 @@ public class TransactionService {
         newTransaction.setTimestamp(LocalDateTime.now());
 
         this.validateService.validateTransaction(newTransaction);
+        this.updateBalanceUser(sender, receiver, transactionRequest.value());
         this.saveTransaction(newTransaction);
 
         return newTransaction;
@@ -37,5 +39,10 @@ public class TransactionService {
 
     public void saveTransaction(Transaction transaction) {
         this.repository.save(transaction);
+    }
+
+    public void updateBalanceUser(User sender, User receiver, BigDecimal valueTransaction) {
+        sender.setBalance(sender.getBalance().subtract(valueTransaction));
+        receiver.setBalance(receiver.getBalance().add(valueTransaction));
     }
 }
