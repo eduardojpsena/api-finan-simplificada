@@ -21,7 +21,7 @@ public class User {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private UserType userType;
+    private EnumUserType userType;
 
     private String name;
 

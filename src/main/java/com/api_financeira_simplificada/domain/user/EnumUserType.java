@@ -1,6 +1,6 @@
 package com.api_financeira_simplificada.domain.user;
 
-public enum UserType {
+public enum EnumUserType {
     COMMON,
     MERCHANT
 }
