@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity(name = "users")
-@Table(name = "users")
+@Entity(name = "transactions")
+@Table(name = "transactions")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
