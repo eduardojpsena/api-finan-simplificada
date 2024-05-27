@@ -24,6 +24,8 @@ public class TransactionService {
         User sender = userService.findUserById(transactionRequest.senderId());
         User receiver = userService.findUserById(transactionRequest.receiverId());
 
+        this.validateService.validateAuthorizeTransaction();
+
         Transaction newTransaction = new Transaction();
         newTransaction.setSender(sender);
         newTransaction.setReceiver(receiver);
@@ -31,8 +33,8 @@ public class TransactionService {
         newTransaction.setTimestamp(LocalDateTime.now());
 
         this.validateService.validateTransaction(newTransaction);
-        this.updateBalanceUser(sender, receiver, transactionRequest.value());
         this.saveTransaction(newTransaction);
+        this.updateBalanceUser(sender, receiver, transactionRequest.value());
 
         return newTransaction;
     }
@@ -44,5 +46,8 @@ public class TransactionService {
     public void updateBalanceUser(User sender, User receiver, BigDecimal valueTransaction) {
         sender.setBalance(sender.getBalance().subtract(valueTransaction));
         receiver.setBalance(receiver.getBalance().add(valueTransaction));
+
+        this.userService.saveUser(sender);
+        this.userService.saveUser(receiver);
     }
 }

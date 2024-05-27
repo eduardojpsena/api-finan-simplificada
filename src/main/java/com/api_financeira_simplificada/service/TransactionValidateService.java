@@ -5,11 +5,15 @@ import com.api_financeira_simplificada.domain.transaction.Transaction;
 import com.api_financeira_simplificada.domain.user.EnumUserType;
 import com.api_financeira_simplificada.domain.user.User;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
 public class TransactionValidateService {
+
+    @Autowired
+    private AuthorizationService authorizationService;
 
     public void validateTransaction(Transaction transaction) throws Exception {
         User sender = transaction.getSender();
@@ -25,4 +29,12 @@ public class TransactionValidateService {
         }
 
     }
+
+    public void validateAuthorizeTransaction() throws Exception {
+        log.info("Validando autorização da transação");
+        if (!this.authorizationService.authorize().authorization()) {
+            throw new Exception(EnumError.TRANSACAO_NAO_AUTORIZADA.getMessage());
+        }
+    }
+
 }
